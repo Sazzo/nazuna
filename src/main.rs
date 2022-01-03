@@ -18,7 +18,6 @@ use models::{APICredentials, OAuthCredentials};
 #[derive(StructOpt)]
 struct Cli {
     // Tweet URL
-    #[structopt(short, long)]
     url: String,
 
     // Output File (optional)
