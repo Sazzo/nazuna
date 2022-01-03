@@ -12,8 +12,11 @@
 Download the desired file for your OS (Windows, Mac, Linux) from https://github.com/Sazzo/nazuna/releases
 
 ### AUR
+[![AUR maintainer](https://img.shields.io/aur/maintainer/nazuna?logo=arch-linux&style=flat-square)](https://aur.archlinux.org/packages/nazuna)  
 
-soon:tm:
+```
+$ yay -S nazuna
+```
 
 ## Usage
 
