@@ -21,10 +21,15 @@ soon:tm:
 $ nazuna --url=<Tweet URL>
 ```
 
+By default, the output file will be `output.mp4`, if you want to specify how this file will look like, you need to use the `--output` option:
+
+```
+$ nazuna --url<Tweet URL> --output=<File>
+```
 
 ## Configuration
 
-Nazuna requires a Twitter API Key and API Secret to work propelry, to obtain these keys you need to register a application on the Twitter Developer Portal.
+Nazuna requires a Twitter API Key and API Secret to work properly, to obtain these keys you need to register a application on the Twitter Developer Portal.
 
 ### Getting Started
 
@@ -48,4 +53,4 @@ Now, try to download a video using Nazuna and you should be asked about the API 
 
 ## Notes
 
-- Yep, I'm a noob in Rust and I'm trying to improve. If you want to give some feedback, feel free to open a issue. 
+- Yep, I'm a noob in Rust and I'm trying to improve. If you want to give some feedback, feel free to open a issue.
