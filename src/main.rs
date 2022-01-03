@@ -51,9 +51,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("{}", NAZUNA_ASCII_TEXT);
 
     let args = Cli::from_args();
-    let home_dir = dirs::home_dir().expect("I can't find your home folder!");
+    let config_dir = dirs::config_dir().expect("I can't find your config directory!");
 
-    let nazuna_folder_path: String = format!("{}/.nazuna", home_dir.to_str().unwrap());
+    let nazuna_folder_path: String = format!("{}/nazuna", config_dir.to_str().unwrap());
     let nazuna_folder = fs::read_dir(&nazuna_folder_path);
 
     if nazuna_folder.is_err() {
@@ -61,7 +61,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let credentials = request_twitter_credentials();
 
         fs::create_dir(&nazuna_folder_path)
-            .expect("I can't create the .nazuna folder in your home directory!");
+            .expect("I can't create the .nazuna folder in your config directory!");
 
         let credentials_file_content = json!({
             "api_key": credentials.api_key,
