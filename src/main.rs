@@ -20,6 +20,10 @@ struct Cli {
     // Tweet URL
     #[structopt(short, long)]
     url: String,
+
+    // Output File (optional)
+    #[structopt(short, long, default_value = "output.mp4", required = false)]
+    output: String,
 }
 
 const NAZUNA_ASCII_TEXT: &str = r#"                                       
@@ -130,12 +134,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     )
     .await;
 
-    download_video(video_url).await.expect("Error trying to download the video.");
+    download_video(video_url, args.output).await.expect("Error trying to download the video.");
 
     Ok(())
 }
 
-async fn download_video(video_url: String) -> Result<(), String> {
+async fn download_video(video_url: String, output: String) -> Result<(), String> {
     // https://gist.github.com/giuliano-oliveira/4d11d6b3bb003dba3a1b53f43d81b30d
     let response = reqwest::get(video_url)
         .await
@@ -148,7 +152,7 @@ async fn download_video(video_url: String) -> Result<(), String> {
         .progress_chars("#>-"));
     progress_bar.set_message("Downloading video...");
 
-    let mut file = File::create("output.mp4").unwrap();
+    let mut file = File::create(&output).unwrap();
     let mut downloaded_size: u64 = 0;
     let mut response_stream = response.bytes_stream();
 
@@ -163,8 +167,9 @@ async fn download_video(video_url: String) -> Result<(), String> {
     }
 
     progress_bar.finish_with_message(format!(
-        "{} Downloaded video to output.mp4",
-        style("✔".to_string()).green()
+        "{} Downloaded video to {}",
+        style("✔".to_string()).green(),
+        output
     ));
     Ok(())
 }
