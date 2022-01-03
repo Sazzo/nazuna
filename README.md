@@ -21,13 +21,13 @@ $ yay -S nazuna
 ## Usage
 
 ```
-$ nazuna --url=<Tweet URL>
+$ nazuna <Tweet URL>
 ```
 
 By default, the output file will be `output.mp4`, if you want to specify how this file will look like, you need to use the `--output` option:
 
 ```
-$ nazuna --url<Tweet URL> --output=<File>
+$ nazuna <Tweet URL> --output=<File>
 ```
 
 ## Configuration
