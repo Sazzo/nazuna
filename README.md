@@ -9,7 +9,7 @@
 
 ### Binary
 
-Download the binary file from https://github.com/Sazzo/nazuna/releases
+Download the desired file for your OS (Windows, Mac, Linux) from https://github.com/Sazzo/nazuna/releases
 
 ### AUR
 
