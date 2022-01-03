@@ -50,7 +50,7 @@ After filling the basic app information, the keys should appear to you (especial
 
 ### Using the API Keys on Nazuna
 
-Now, try to download a video using Nazuna and you should be asked about the API Key and API Secret. Paste first the API Key and then, click enter to paste the API Secret. These keys will be stored at your home folder in `.nazuna/credentials.json` for future uses.
+Now, try to download a video using Nazuna and you should be asked about the API Key and API Secret. Paste first the API Key and then, click enter to paste the API Secret. These keys will be stored at your config directory in `nazuna/credentials.json` for future uses.
 
 ![image](https://user-images.githubusercontent.com/39680458/147893437-3f8f6b55-63c3-4003-a9b0-4a0d18e2d5d9.png)
 
