@@ -18,6 +18,14 @@ Download the desired file for your OS (Windows, Mac, Linux) from https://github.
 $ yay -S nazuna
 ```
 
+[![AUR maintainer](https://img.shields.io/aur/maintainer/nazuna-git?logo=arch-linux&style=flat-square)](https://aur.archlinux.org/packages/nazuna-git)  
+
+You can also install from the latest commit in this repository with:
+
+```
+$ yay -S nazuna-git
+```
+
 ## Usage
 
 ```
