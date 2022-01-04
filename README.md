@@ -2,7 +2,7 @@
 <p align="center">🐦 Download Twitter videos using your terminal! </p>
 
 <p align="center">
-<img src="https://i.imgur.com/kH7eOYN.gif">
+<img src="https://i.imgur.com/91vHedl.gif">
 </p>
   
 ## Installation
