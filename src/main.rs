@@ -1,5 +1,4 @@
 use dialoguer::console::style;
-use dialoguer::{theme::ColorfulTheme, Input, Select};
 use futures::StreamExt;
 use indicatif::{ProgressBar, ProgressStyle};
 use serde_json::json;
@@ -10,12 +9,14 @@ use std::{
 };
 use structopt::StructOpt;
 
-mod models;
-mod twitter;
 mod messages;
+mod models;
+mod prompt;
+mod twitter;
 
-use models::{APICredentials, OAuthCredentials};
 use messages::*;
+use models::{APICredentials, OAuthCredentials};
+use prompt::*;
 
 #[derive(StructOpt)]
 struct Cli {
@@ -114,7 +115,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     )
     .await;
 
-    download_video(video_url, args.output).await.expect("Error trying to download the video.");
+    download_video(video_url, args.output)
+        .await
+        .expect("Error trying to download the video.");
 
     Ok(())
 }
@@ -124,7 +127,9 @@ async fn download_video(video_url: String, output: String) -> Result<(), String>
     let response = reqwest::get(video_url)
         .await
         .expect("Error trying to download the video.");
-    let video_size = response.content_length().expect("Cannot fetch the video size. Please try again.");
+    let video_size = response
+        .content_length()
+        .expect("Cannot fetch the video size. Please try again.");
 
     let progress_bar = ProgressBar::new(video_size);
     progress_bar.set_style(ProgressStyle::default_bar()
@@ -152,41 +157,4 @@ async fn download_video(video_url: String, output: String) -> Result<(), String>
         output
     ));
     Ok(())
-}
-
-fn select_twitter_video_resolution(resolutions: &Vec<String>) -> usize {
-    let selection = Select::with_theme(&ColorfulTheme::default())
-        .with_prompt("Select the video resolution")
-        .items(&resolutions[..])
-        .interact()
-        .unwrap();
-
-    selection
-}
-
-fn request_twitter_oauth_pin() -> String {
-    let twitter_oauth_pin: String = Input::with_theme(&ColorfulTheme::default())
-        .with_prompt("Twitter PIN:")
-        .interact_text()
-        .unwrap();
-
-    twitter_oauth_pin
-}
-
-fn request_twitter_credentials() -> APICredentials {
-    let twitter_api_key: String = Input::with_theme(&ColorfulTheme::default())
-        .with_prompt("Twitter API Key:")
-        .interact_text()
-        .unwrap();
-
-    let twitter_api_secret: String = Input::with_theme(&ColorfulTheme::default())
-        .with_prompt("Twitter API Secret:")
-        .interact_text()
-        .unwrap();
-
-    let credentials = APICredentials {
-        api_key: twitter_api_key,
-        api_secret: twitter_api_secret,
-    };
-    credentials
 }
