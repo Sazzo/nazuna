@@ -12,8 +12,10 @@ use structopt::StructOpt;
 
 mod models;
 mod twitter;
+mod messages;
 
 use models::{APICredentials, OAuthCredentials};
+use messages::*;
 
 #[derive(StructOpt)]
 struct Cli {
@@ -24,27 +26,6 @@ struct Cli {
     #[structopt(short, long, default_value = "output.mp4", required = false)]
     output: String,
 }
-
-const NAZUNA_ASCII_TEXT: &str = r#"                                       
-                                  
- _ __   __ _ _____   _ _ __   __ _ 
-| '_ \ / _` |_  / | | | '_ \ / _` |
-| | | | (_| |/ /| |_| | | | | (_| |
-|_| |_|\__,_/___|\__,_|_| |_|\__,_|
-                                                                      
-"#;
-
-const FIRST_TIME_MESSAGE: &str = r#"
-Welcome to Nazuna! Looks like it's your first time that you're using me!
-Before I can start, I need some Twitter credentials (API Key and API Secret).
-
-Please, take a read at https://github.com/Sazzo/Nazuna#configuration and when you're ready, provide me the keys below!
-"#;
-
-const OAUTH_MESSAGE: &str = r#"
-Now, I need you to authenticate using your Twitter account. I'll try to open your browser with the OAuth URL.
-If this doesn't works, you can try opening the URL manually in your browser.
-"#;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
