@@ -47,15 +47,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         fs::create_dir(&nazuna_folder_path)
             .expect("I can't create the .nazuna folder in your config directory!");
 
-        let credentials_file_content = json!({
-            "api_key": credentials.api_key,
-            "api_secret": credentials.api_secret,
-        });
-
         let mut credentials_file = File::create(&credentials_path).unwrap();
 
         credentials_file
-            .write_all(credentials_file_content.to_string().as_bytes())
+            .write_all(serde_json::to_string(&credentials).unwrap().as_bytes())
             .unwrap();
 
         println!(
@@ -85,13 +80,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         let access_token =
             twitter::get_access_token(con_token, request_token, twitter_oauth_pin).await;
 
-        let oauth_credentials_file_content = json!({
-            "access_token": access_token,
-        });
+        let oauth_credentials = OAuthCredentials { access_token };
 
         let mut oauth_credentials_file = File::create(&oauth_credentials_path).unwrap();
         oauth_credentials_file
-            .write_all(oauth_credentials_file_content.to_string().as_bytes())
+            .write_all(
+                serde_json::to_string(&oauth_credentials)
+                    .unwrap()
+                    .as_bytes(),
+            )
             .unwrap();
     }
 
