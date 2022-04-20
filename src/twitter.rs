@@ -11,9 +11,9 @@ pub async fn get_con_and_request_tokens(api_key: String, api_secret: String) -> 
 }
 
 pub async fn get_authorize_url(request_token: &KeyPair) -> String {
-    let authorize_url = egg_mode::auth::authorize_url(request_token);
+    
 
-    authorize_url
+    egg_mode::auth::authorize_url(request_token)
 }
 
 pub async fn get_access_token(con_token: KeyPair, request_token: KeyPair, pin: String) -> Token {
@@ -52,7 +52,7 @@ pub async fn get_tweet_video_resolutions(access_token: &Token, tweet_id: u64) ->
         .filter(|variant| variant.content_type == "video/mp4")
         .map(|variant| {
             let variant_url_without_https = variant.url.replace("https://", "");
-            let variant_url_splitted = variant_url_without_https.split("/").collect::<Vec<&str>>();
+            let variant_url_splitted = variant_url_without_https.split('/').collect::<Vec<&str>>();
 
             variant_url_splitted.get(5).unwrap().to_string()
         })
@@ -95,7 +95,7 @@ pub async fn get_tweet_video_url_by_resolution(
         .iter()
         .find(|variant| {
             let variant_url_without_https = variant.url.replace("https://", "");
-            let variant_url_splitted = variant_url_without_https.split("/").collect::<Vec<&str>>();
+            let variant_url_splitted = variant_url_without_https.split('/').collect::<Vec<&str>>();
             let variant_resolution = variant_url_splitted.get(5).unwrap().to_string();
 
             variant_resolution == resolution
