@@ -1,7 +1,6 @@
 use dialoguer::console::style;
 use futures::StreamExt;
 use indicatif::{ProgressBar, ProgressStyle};
-use serde_json::json;
 use std::cmp::min;
 use std::{
     fs::{self, File},
@@ -96,7 +95,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let oauth_credentials: OAuthCredentials = serde_json::from_str(&oauth_credentials_file)?;
 
     let tweet_url_without_https = args.url.replace("https://", "");
-    let tweet_splitted = tweet_url_without_https.split("/").collect::<Vec<&str>>();
+    let tweet_splitted = tweet_url_without_https.split('/').collect::<Vec<&str>>();
     let tweet_id = tweet_splitted.last().unwrap().parse::<u64>().unwrap();
 
     let tweet_video_resolutions =

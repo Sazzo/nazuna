@@ -2,7 +2,7 @@ use dialoguer::{Select, theme::ColorfulTheme, Input};
 
 use crate::models::APICredentials;
 
-pub fn select_twitter_video_resolution(resolutions: &Vec<String>) -> usize {
+pub fn select_twitter_video_resolution(resolutions: &[String]) -> usize {
     Select::with_theme(&ColorfulTheme::default())
         .with_prompt("Select the video resolution")
         .items(&resolutions[..])
@@ -28,9 +28,9 @@ pub fn request_twitter_credentials() -> APICredentials {
         .interact_text()
         .unwrap();
 
-    let credentials = APICredentials {
+    
+    APICredentials {
         api_key,
         api_secret,
-    };
-    credentials
+    }
 }
