@@ -35,7 +35,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = Cli::from_args();
     let config_dir = dirs::config_dir().expect("I can't find your config directory!");
 
-    let nazuna_folder_path: String = format!("{}/nazuna", config_dir.to_str().unwrap());
+    let nazuna_folder_path = config_dir.join("nazuna");
+    let credentials_path = nazuna_folder_path.join("credentials.json");
+
     let nazuna_folder = fs::read_dir(&nazuna_folder_path);
 
     if nazuna_folder.is_err() {
@@ -50,21 +52,22 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             "api_secret": credentials.api_secret,
         });
 
-        let mut credentials_file =
-            File::create(format!("{}/credentials.json", &nazuna_folder_path)).unwrap();
+        let mut credentials_file = File::create(&credentials_path).unwrap();
+
         credentials_file
             .write_all(credentials_file_content.to_string().as_bytes())
             .unwrap();
 
         println!(
             "\nAwesome! Your credentials are stored at {}. Let's proceed now!\n",
-            &nazuna_folder_path
+            &nazuna_folder_path.to_str().unwrap()
         )
     }
 
-    let credentials_file =
-        fs::read_to_string(format!("{}/credentials.json", &nazuna_folder_path)).unwrap();
-    let oauth_credentials = fs::read(format!("{}/oauth_credentials.json", &nazuna_folder_path));
+    let credentials_file = fs::read_to_string(&credentials_path).unwrap();
+
+    let oauth_credentials_path = nazuna_folder_path.join("oauth_credentials.json");
+    let oauth_credentials = fs::read(&oauth_credentials_path);
 
     if oauth_credentials.is_err() {
         let credentials: APICredentials = serde_json::from_str(&credentials_file)?;
@@ -86,15 +89,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             "access_token": access_token,
         });
 
-        let mut oauth_credentials_file =
-            File::create(format!("{}/oauth_credentials.json", &nazuna_folder_path)).unwrap();
+        let mut oauth_credentials_file = File::create(&oauth_credentials_path).unwrap();
         oauth_credentials_file
             .write_all(oauth_credentials_file_content.to_string().as_bytes())
             .unwrap();
     }
 
-    let oauth_credentials_file =
-        fs::read_to_string(format!("{}/oauth_credentials.json", &nazuna_folder_path)).unwrap();
+    let oauth_credentials_file = fs::read_to_string(&oauth_credentials_path).unwrap();
     let oauth_credentials: OAuthCredentials = serde_json::from_str(&oauth_credentials_file)?;
 
     let tweet_url_without_https = args.url.replace("https://", "");
