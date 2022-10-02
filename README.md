@@ -48,7 +48,7 @@ Go to https://developer.twitter.com/en/portal/dashboard, if it's your first time
 
 ### Creating the Application
 
-If again, it's your first time accessing the dashboard, the first thing that should appear after filling the usage form is the application creationg form, that should ask about the app name, app description and etc.
+If again, it's your first time accessing the dashboard, the first thing that should appear after filling the usage form is the application creation form, that should ask about the app name, app description and etc.
 
 If it's not your first time accessing the dashboard, you need to create a new project which if you have no project in your account, a big blue button should appear to you on the home page, see below for a example. Fill the project name, use case and project description, after this create a new app like described above.
 
